@@ -16,8 +16,7 @@ public class MessageController {
 
     @Autowired
     public MessageController(
-            MessageManager messageManager
-    ) {
+            MessageManager messageManager) {
         this.messageManager = messageManager;
     }
 
@@ -31,7 +30,8 @@ public class MessageController {
             @Valid @RequestBody MessageCreatedCommand command
     ) {
         try {
-            messageManager.save(command.getUserId(), command.getText());
+            Message message = messageManager.save(command.getUserId(), command.getText());
+            messageManager.send(message);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

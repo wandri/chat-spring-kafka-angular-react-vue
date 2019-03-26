@@ -19,6 +19,11 @@ public class MongoUserRepository implements UserRepository {
     }
 
     @Override
+    public User find(String id) {
+        return defaultMongoUserRepository.findById(id).orElse(null);
+    }
+
+    @Override
     public User save(String userName) {
         return defaultMongoUserRepository.save(new User(null, userName));
     }

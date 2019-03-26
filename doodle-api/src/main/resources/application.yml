@@ -3,5 +3,19 @@ spring:
     mongodb:
       host: localhost
       port: 27017
+  kafka:
+    bootstrap-servers: "http://localhost:9092"
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+    consumer:
+      group-id: "chat"
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      enable-auto-commit: true
+    properties:
+      specific.avro.reader: true
+      schema.registry.url: "http://localhost:8081"
 server:
-  port: 8004
+  port: 8000

@@ -1,0 +1,29 @@
+{
+  "type": "record",
+  "name": "MessageAvro",
+  "namespace": "com.wandrillecorp.avro.message",
+  "doc": "A view over all messages",
+  "fields": [
+      {
+        "name": "id",
+        "type": "string"
+      },
+      {
+        "name": "text",
+        "type": "string"
+      },
+      {
+        "name": "userId",
+        "type": "string"
+      },
+      {
+        "name": "userName",
+        "type": "string"
+      },
+      {
+        "name": "date",
+        "type": "int",
+        "logicalType": "date"
+      }
+  ]
+}
