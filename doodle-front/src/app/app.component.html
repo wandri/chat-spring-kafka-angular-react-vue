@@ -1,3 +1,10 @@
 <div>
-  <app-messages></app-messages>
+  <ng-container *ngIf="!user">
+    What is your name ?
+    <input type="text" [formControl]="userName">
+    <button (click)="activateUser()">send</button>
+  </ng-container>
+  <ng-container *ngIf="user">
+    <app-messages [user]="user"></app-messages>
+  </ng-container>
 </div>

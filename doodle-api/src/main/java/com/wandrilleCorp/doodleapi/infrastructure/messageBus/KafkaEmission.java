@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class KafkaEmission implements ChatMessageBus {
 
-    private final KafkaTemplate<Integer, MessageAvro> kafkaTemplate;
+    private final KafkaTemplate<String, MessageAvro> kafkaTemplate;
 
     @Autowired
-    public KafkaEmission(KafkaTemplate<Integer, MessageAvro> kafkaTemplate) {
+    public KafkaEmission(KafkaTemplate<String, MessageAvro> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 

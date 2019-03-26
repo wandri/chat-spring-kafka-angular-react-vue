@@ -9,7 +9,7 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
     consumer:
-      group-id: "chat"
+      group-id: "doodle-api"
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
@@ -19,3 +19,8 @@ spring:
       schema.registry.url: "http://localhost:8081"
 server:
   port: 8000
+
+logging:
+  level:
+    org.apache.kafka.clients: WARN
+    io.confluent.kafka: WARN
