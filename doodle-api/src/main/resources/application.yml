@@ -4,4 +4,4 @@ spring:
       host: localhost
       port: 27017
 server:
-  port: 8000
+  port: 8004

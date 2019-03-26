@@ -8,5 +8,4 @@ import java.util.List;
 
 @Repository
 public interface DefaultMongoMessageRepository extends MongoRepository<Message, String> {
-    List<Message> findAllOrderByDate();
 }

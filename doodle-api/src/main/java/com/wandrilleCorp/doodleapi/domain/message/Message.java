@@ -12,6 +12,9 @@ public class Message extends ValueObject implements Serializable {
     private String text;
     private Date date;
 
+    public Message() {
+    }
+
     public Message(String id, String userName, String userId, String text, Date date) {
         this.id = id;
         this.userName = userName;

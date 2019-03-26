@@ -21,7 +21,7 @@ But the code doesnt use here the functionality of typescript for the format of t
 
 ### Database
 
-For the project, we will launch a docker image of mongoDB.
+For the project, we will launch a docker image of mongoDB and Kafka.
 
 1. Install [Docker](https://docs.docker.com/install/)
 2. Install [docker-compose](https://docs.docker.com/compose/install/)
