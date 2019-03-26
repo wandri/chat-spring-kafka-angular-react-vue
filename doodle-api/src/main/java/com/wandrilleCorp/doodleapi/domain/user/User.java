@@ -1,6 +1,8 @@
-package com.wandrilleCorp.doodleapi.domain;
+package com.wandrilleCorp.doodleapi.domain.user;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String id;
     private String name;
 

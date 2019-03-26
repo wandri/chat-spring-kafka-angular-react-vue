@@ -1,8 +1,11 @@
-package com.wandrilleCorp.doodleapi.domain;
+package com.wandrilleCorp.doodleapi.domain.message;
 
+import com.wandrilleCorp.doodleapi.domain.ValueObject;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class Message {
+public class Message extends ValueObject implements Serializable {
     private String id;
     private String userName;
     private String userId;

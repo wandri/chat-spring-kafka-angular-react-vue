@@ -36,3 +36,10 @@ For the project, we will launch a docker image of mongoDB.
 2. Install the dependencies : `npm install -g @angular/cli`
 3. Install the module of the project in the front folder: `npm i`
 4. Run the application in localhost:4200 in the front folder : `ng serve -o`
+
+## What can be better :
+
+- The api is not completely independant. It will be better if we don't use `User` and `Message` from the domain. 
+We need to create new classes for the API and map `Domain` and `User` to them. 
+- Listen all the message every time is fast with few messages. 
+But quickly, it's interesting to load all previous messages and then listen only new messages.
