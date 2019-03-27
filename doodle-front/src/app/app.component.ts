@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { UserService } from './user/user.service';
 import { User } from './user/user.interface';
@@ -8,13 +8,20 @@ import { User } from './user/user.interface';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
+
+  @ViewChild('userInput')
+  userInput: ElementRef;
 
   userName = new FormControl('');
 
   user: User;
 
   constructor(private userService: UserService) {
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => this.userInput.nativeElement.focus());
   }
 
   activateUser() {

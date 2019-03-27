@@ -21,7 +21,7 @@
     </div>
   </div>
   <form fxLayout="row" class="message-form" fxLayoutAlign="start center" (submit)="send()">
-    <input type="text" [formControl]="name" placeholder="Write your message...">
+    <input type="text" #messageInput [formControl]="name" placeholder="Write your message...">
     <div class="send-button">
       <button type="submit" [disabled]="name.value === ''">
         <mat-icon aria-hidden="false">send</mat-icon>

@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Stomp } from 'stompjs/lib/stomp.js';
 import { MessageService } from './message.service';
@@ -11,10 +11,13 @@ import { environment } from '../../environments/environment';
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.scss']
 })
-export class MessagesComponent implements OnInit, OnDestroy {
+export class MessagesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Input()
   user: User;
+
+  @ViewChild('messageInput')
+  messageInput: ElementRef;
 
   messages: Message[] = [];
   name = new FormControl('');
@@ -28,6 +31,10 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this.messageService.getMessages().then((messages: Message[]) => {
       this.messages = messages;
     });
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => this.messageInput.nativeElement.focus());
   }
 
   ngOnDestroy(): void {

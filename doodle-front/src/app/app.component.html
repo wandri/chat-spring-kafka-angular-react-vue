@@ -9,7 +9,7 @@
           What is your name ?
         </div>
         <form (submit)="activateUser()" fxLayoutGap="15px" fxLayout="column" fxLayoutAlign="center center">
-          <input type="text" [formControl]="userName">
+          <input type="text" [formControl]="userName" #userInput>
           <button type="submit" *ngIf="userName.value" mat-flat-button color="primary">
             Let's go!
           </button>
