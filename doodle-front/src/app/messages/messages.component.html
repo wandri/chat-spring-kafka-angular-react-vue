@@ -1,0 +1,31 @@
+<div class="message-component">
+  <div class="message-container" #scroll [scrollTop]="scroll.scrollHeight">
+    <div class="messages" fxLayout="column" fxLayoutGap="20px">
+      <div *ngFor="let message of messages"
+           [ngClass]="{'current-user': isCurrentUser(message.userId), 'other-user': !isCurrentUser(message.userId)}">
+        <div fxLayout="column" fxLayoutGap="5px" class="bubble">
+          <div class="user-name">
+            {{message.userName}}
+          </div>
+          <div class="message-text" fxLayoutAlign="center end" fxLayoutGap="10px">
+            <span>{{message.text}}</span>
+            <span *ngIf="isToday(message.date)" class="message-date">
+              {{isToday(message.date) ? (message.date | date:'hh:mm') : (message.date | date:'dd MMM yyyy')}}
+            </span>
+          </div>
+          <div class="message-date" *ngIf="!isToday(message.date)">
+            {{message.date | date:'dd MMM yyyy'}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <form fxLayout="row" class="message-form" fxLayoutAlign="start center" (submit)="send()">
+    <input type="text" [formControl]="name" placeholder="Write your message...">
+    <div class="send-button">
+      <button type="submit" [disabled]="name.value === ''">
+        <mat-icon aria-hidden="false">send</mat-icon>
+      </button>
+    </div>
+  </form>
+</div>
