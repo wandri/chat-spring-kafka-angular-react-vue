@@ -8,10 +8,12 @@
         <div>
           What is your name ?
         </div>
-        <input type="text" [formControl]="userName">
-        <button *ngIf="userName.value" (click)="activateUser()" mat-flat-button color="primary">
-          Let's go!
-        </button>
+        <form (submit)="activateUser()" fxLayoutGap="15px" fxLayout="column" fxLayoutAlign="center center">
+          <input type="text" [formControl]="userName">
+          <button type="submit" *ngIf="userName.value" mat-flat-button color="primary">
+            Let's go!
+          </button>
+        </form>
       </div>
     </ng-container>
     <ng-container *ngIf="user">

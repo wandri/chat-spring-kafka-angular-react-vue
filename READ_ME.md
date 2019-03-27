@@ -40,6 +40,4 @@ For the project, we will launch a docker image of mongoDB and Kafka.
 ## What can be better :
 
 - The api is not completely independant. It will be better if we don't use `User` and `Message` from the domain. 
-We need to create new classes for the API and map `Domain` and `User` to them. 
-- Listen all the message every time is fast with few messages. 
-But quickly, it's interesting to load all previous messages and then listen only new messages.
+We need to create new classes for the API and map `Domain` and `User` to them.
