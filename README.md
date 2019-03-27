@@ -73,3 +73,5 @@ ng serve -o
 - The api is not completely independent. It will be better if we don't use `User` and `Message` from the domain. 
 We need to create new classes for the API and map `Domain` and `User` to them.
 - For the purpose of the project, there is **NO test**. And this is a bad practice. We need to improve the test coverage.
+- The format of messages are known. It could be interesting to check if SQL can be better.
+- I use Angular to iterate quickly. But For better performance, it can be done without any framework, in pure JS.
