@@ -3,4 +3,5 @@ export interface Message {
   text: string;
   userId: string;
   userName: string;
+  date: Date;
 }
