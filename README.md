@@ -24,6 +24,8 @@ The front is done with [Angular](https://angular.io). It's written in typeScript
 
 For the project, we will launch a docker image of mongoDB and Kafka.
 
+We can achieve to code a chat without any store or message broker. But if we do so we lose, to my mind, all the interest of the project.
+
 1. Install [Docker](https://docs.docker.com/install/)
 2. Install [docker-compose](https://docs.docker.com/compose/install/)
 3. To run Kafka and Mongo images, execute in the deploy folder: 
