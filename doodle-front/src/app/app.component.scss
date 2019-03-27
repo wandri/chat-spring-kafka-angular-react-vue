@@ -1,0 +1,47 @@
+.application-component {
+  &::before {
+    content: '';
+    width: 100%;
+    height: 200px;
+    position: absolute;
+    background-color: #3798D4;
+    top: 0;
+    z-index: -1;
+  }
+
+  .application-container {
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.06), 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+    font-size: 24px;
+    @media (min-width: 1919px) {
+      width: 60%;
+      height: 90%;
+    }
+
+    input {
+      font-size: 22px;
+      width: 300px;
+      border: 2px solid #aaa;
+      border-radius: 4px;
+      margin: 8px 0;
+      outline: none;
+      padding: 15px;
+      box-sizing: border-box;
+      transition: .3s;
+    }
+
+    input[type=text]:focus {
+      border-color: dodgerBlue;
+      box-shadow: 0 0 8px 0 dodgerBlue;
+    }
+
+    button{
+      padding: 10px 20px;
+      font-size: 22px;
+      color: #ffffff;
+    }
+  }
+}

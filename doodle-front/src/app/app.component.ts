@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-
-// TODO move interface
-export interface User {
-  name: string;
-  id: string;
-}
+import { UserService } from './user/user.service';
+import { User } from './user/user.interface';
 
 @Component({
   selector: 'app-root',
@@ -19,13 +14,12 @@ export class AppComponent {
 
   user: User;
 
-  constructor(private http: HttpClient) {
-    console.log(this.user)
+  constructor(private userService: UserService) {
   }
 
   activateUser() {
     if ( this.userName.value && this.userName.value !== '' ) {
-      this.http.post<User>('http://localhost:8000/users', {name: this.userName.value}).toPromise()
+      this.userService.getUser(this.userName.value)
         .then(user => this.user = user);
     }
   }

@@ -1,10 +1,21 @@
-<div>
-  <ng-container *ngIf="!user">
-    What is your name ?
-    <input type="text" [formControl]="userName">
-    <button (click)="activateUser()">send</button>
-  </ng-container>
-  <ng-container *ngIf="user">
-    <app-messages [user]="user"></app-messages>
-  </ng-container>
+<div class="application-component" fxFlexFill fxLayout="row" fxLayoutAlign="center center">
+  <div class="application-container">
+    <ng-container *ngIf="!user">
+      <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill fxLayoutGap="15px">
+        <h1>
+          Welcome to the chat
+        </h1>
+        <div>
+          What is your name ?
+        </div>
+        <input type="text" [formControl]="userName">
+        <button *ngIf="userName.value" (click)="activateUser()" mat-flat-button color="primary">
+          Let's go!
+        </button>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="user">
+      <app-messages [user]="user"></app-messages>
+    </ng-container>
+  </div>
 </div>
