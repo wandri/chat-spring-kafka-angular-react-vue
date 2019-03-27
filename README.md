@@ -15,7 +15,6 @@ It provides a websocket connection for realtime conversation.
 
 ### Front
 The front is done with [Angular](https://angular.io). It's written in typeScript. 
-But the code doesnt use here the functionality of typescript for the format of the exercise.
 
 > Please, use JavaScript (Vanilla JS, React, ...). 
 
