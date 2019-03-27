@@ -5,6 +5,8 @@
 
 This application is a Whatsapp-like application. It provides realtime conversations with other people.
 
+  ![user page](./doc/user_screen.jpg)
+  ![chat page](./doc/message_screen.jpg)
 ## Structure
 
 ### API
