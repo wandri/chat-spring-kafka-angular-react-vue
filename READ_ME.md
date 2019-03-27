@@ -1,4 +1,4 @@
-# Doodle : Full-stack coding exercise
+# Chat : Full-stack coding exercise
 
 
 ## Presentation
