@@ -13,10 +13,12 @@ This application is a Whatsapp-like application. It provides realtime conversati
 The api is done with Java 8 and Spring Boot 2.
 It provides a websocket connection for realtime conversation.
 
-### Front
-The front is done with [Angular](https://angular.io). It's written in typeScript. 
+### Multiple Fronts
+One front is done with [Angular](https://angular.io). It's written in typeScript. 
 
 > Please, use JavaScript (Vanilla JS, React, ...). 
+
+The other front is done with [React](https://reactjs.org/)
 
 ## Initiate the stack locally
 
@@ -43,11 +45,11 @@ We can achieve to code a chat without any store or message broker. But if we do 
 ### Front
 
 1. Install [NodeJs](https://nodejs.org/en/)
-2. Install the dependencies :
+2. For Angular, install the dependencies :
     ```
     npm install -g @angular/cli
     ```
-3. Install the module of the project in the front folder:
+3. Install the module of the project in the front folders:
     ```
     npm i
     ```
@@ -64,9 +66,18 @@ mvn spring-boot:run
 
 ### Front
 
+#### Angular
+
 Run the application in localhost:4200 in the front folder : 
 ```
 ng serve -o
+```
+
+#### React
+
+Run the application in localhost:3000 in the front folder : 
+```
+npm start
 ```
 
 ## What can be better :

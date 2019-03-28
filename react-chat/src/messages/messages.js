@@ -57,11 +57,11 @@ export class Messages extends Component {
                             <span className="margin-right-10">{message.text}</span>
                             {Messages.isToday(message.date) ? (
                                 <span
-                                    className="message-date">{this.getDateWithFormat(message.date, true)}</span>) : null}
+                                    className="message-date">{Messages.getDateWithFormat(message.date, true)}</span>) : null}
                         </div>
                         {!Messages.isToday(message.date) ? (
                             <div
-                                className="message-date">{this.getDateWithFormat(message.date, false)}</div>) : null}
+                                className="message-date">{Messages.getDateWithFormat(message.date, false)}</div>) : null}
                     </div>
                 </div>
             )
@@ -79,7 +79,7 @@ export class Messages extends Component {
                 this.setState({messages: [...this.state.messages, formatedMessage]});
             });
         }, (error) => {
-            alert('STOMP error ' + error);
+            alert(`STOMP error ${error}`);
         });
     }
 
@@ -120,7 +120,7 @@ export class Messages extends Component {
         )
     }
 
-    getDateWithFormat(date, isToday) {
+    static getDateWithFormat(date, isToday) {
         let options;
         if (isToday) {
             options = {minute: 'numeric', second: 'numeric'};
