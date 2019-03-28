@@ -1,5 +1,5 @@
 {
-  "name": "chat-front",
+  "name": "angular-chat",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
