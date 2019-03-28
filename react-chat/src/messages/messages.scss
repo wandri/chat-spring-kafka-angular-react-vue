@@ -1,0 +1,96 @@
+
+.message-component {
+  height: 100%;
+  width: 100%;
+
+  .message-container {
+    padding: 20px;
+    height: calc(100% - 75px);
+    overflow-y: scroll;
+
+    .messages {
+      .current-user {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      .other-user {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+      }
+
+      .bubble {
+        box-shadow: -1px 1px 0px #ccd6d8;
+        padding: 10px;
+        border: solid 1px #9f9f9f;
+        border-radius: 10px;
+      }
+
+      .current-user, .other-user {
+        margin-bottom: 20px;
+      }
+
+      .user-name, .message-date {
+        color: #949494;
+        font-size: 12px;
+      }
+
+      .user-name, .message-text {
+        margin-bottom: 5px;
+      }
+
+      .message-text {
+        font-size: 16px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-end;
+        align-content: flex-end;
+
+        .margin-right-10 {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+
+  .message-form {
+    width: 100%;
+    background-color: #EEEEEE;
+    height: 75px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+
+    input {
+      font-size: 16px;
+      padding: 15px 25px;
+      width: calc(100% - 100px);
+      height: 40px;
+      margin-left: 30px;
+      margin-right: 30px;
+      border-radius: 25px;
+      background-color: #ffffff;
+      outline: none;
+      border: none;
+      box-sizing: border-box;
+    }
+
+    .send-button {
+      font-size: 20px;
+      width: 100px;
+
+      button {
+        cursor: pointer;
+        outline: none;
+        border: none;
+        background: none;
+      }
+    }
+  }
+}

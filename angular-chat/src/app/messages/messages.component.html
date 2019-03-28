@@ -10,7 +10,7 @@
           <div class="message-text" fxLayoutAlign="center end" fxLayoutGap="10px">
             <span>{{message.text}}</span>
             <span *ngIf="isToday(message.date)" class="message-date">
-              {{isToday(message.date) ? (message.date | date:'hh:mm') : (message.date | date:'dd MMM yyyy')}}
+              {{message.date | date:'hh:mm'}}
             </span>
           </div>
           <div class="message-date" *ngIf="!isToday(message.date)">
