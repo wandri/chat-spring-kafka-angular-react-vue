@@ -123,7 +123,7 @@ export class Messages extends Component {
     static getDateWithFormat(date, isToday) {
         let options;
         if (isToday) {
-            options = {minute: 'numeric', second: 'numeric'};
+            options = {hour: 'numeric', minute: 'numeric'};
         } else {
             options = {year: 'numeric', month: 'long', day: 'numeric'};
         }
