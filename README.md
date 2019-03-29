@@ -14,11 +14,11 @@ The api is done with Java 8 and Spring Boot 2.
 It provides a websocket connection for realtime conversation.
 
 ### Multiple Fronts
-One front is done with [Angular](https://angular.io). It's written in typeScript. 
+- [Angular](https://angular.io). It's written in typeScript. 
 
-> Please, use JavaScript (Vanilla JS, React, ...). 
+- [React](https://reactjs.org/)
 
-The other front is done with [React](https://reactjs.org/)
+- [Vue](https://fr.vuejs.org/). It's written in typeScript. 
 
 ## Initiate the stack locally
 
@@ -78,6 +78,13 @@ ng serve -o
 Run the application in localhost:3000 in the front folder : 
 ```
 npm start
+```
+
+#### Vue
+
+Run the application in localhost:8080 in the front folder : 
+```
+npm run serve
 ```
 
 ## What can be better :

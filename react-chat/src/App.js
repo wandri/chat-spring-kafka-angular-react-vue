@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.scss';
 import axios from 'axios';
-import { Messages } from "./messages/messages";
-import Button from "@material-ui/core/Button";
+import { Messages } from './messages/messages';
+import Button from '@material-ui/core/Button';
 
 class App extends Component {
 
@@ -59,10 +59,13 @@ class App extends Component {
 
     activeUser(event) {
         event.preventDefault();
-        return axios.post(`${this.server}/users`, {name: this.state.userName}).then(response => {
-                this.setState({user: response.data});
-            },
-            (error) => console.error(error))
+        let name = this.state.userName;
+        if (name !== '') {
+            return axios.post(`${this.server}/users`, {name: this.state.userName}).then(response => {
+                    this.setState({user: response.data});
+                },
+                (error) => console.error(error));
+        }
     }
 }
 

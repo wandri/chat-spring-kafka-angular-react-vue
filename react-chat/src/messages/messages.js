@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import './messages.scss';
-import axios from "axios";
-import Icon from "@material-ui/core/Icon";
+import axios from 'axios';
+import Icon from '@material-ui/core/Icon';
 import { Stomp } from 'stompjs/lib/stomp.js';
 
 export class Messages extends Component {
 
     server = 'http://localhost:8000';
     webSocket = 'ws://localhost:8000/socket';
+    ws;
 
     constructor(props) {
         super(props);

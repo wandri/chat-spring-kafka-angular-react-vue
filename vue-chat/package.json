@@ -4,14 +4,18 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "axios": "^0.18.0",
     "stompjs": "^2.3.3",
-    "vue": "^2.6.6"
+    "vue": "^2.6.6",
+    "vue-class-component": "^6.0.0",
+    "vue-property-decorator": "^8.0.0"
   },
   "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.5.0",
     "@vue/cli-plugin-typescript": "^3.5.0",
     "@vue/cli-service": "^3.5.0",
     "node-sass": "^4.9.0",
