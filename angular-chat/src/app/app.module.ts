@@ -1,13 +1,11 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
-import { MessagesComponent } from './messages/messages.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatIconModule } from '@angular/material';
+import {AppComponent} from './app.component';
+import {HttpClientModule} from '@angular/common/http';
+import {MessagesComponent} from './messages/messages.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -18,10 +16,7 @@ import { MatButtonModule, MatIconModule } from '@angular/material';
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FlexLayoutModule,
     BrowserAnimationsModule,
-    MatIconModule,
-    MatButtonModule,
     FormsModule
   ],
   providers: [],

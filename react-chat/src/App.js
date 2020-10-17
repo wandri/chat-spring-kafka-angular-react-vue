@@ -30,7 +30,7 @@ class App extends Component {
                     {this.state.user ? this.displayMessages() : this.displayUserInput()}
                 </div>
             </div>
-        )
+        );
     }
 
     displayUserInput() {
@@ -50,7 +50,7 @@ class App extends Component {
                     </Button>
                 </form>
             </div>
-        )
+        );
     }
 
     displayMessages() {
@@ -69,4 +69,4 @@ class App extends Component {
     }
 }
 
-export default App
+export default App;

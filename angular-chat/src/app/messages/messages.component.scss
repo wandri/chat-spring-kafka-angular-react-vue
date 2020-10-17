@@ -1,5 +1,5 @@
 .message-component {
-  height: 100%;
+  height: 500px;
   width: 100%;
 
   .message-container {
@@ -27,13 +27,29 @@
         border-radius: 10px;
       }
 
+      .current-user, .other-user {
+        margin-bottom: 20px;
+      }
+
       .user-name, .message-date {
         color: #949494;
         font-size: 12px;
       }
 
+      .user-name, .message-text {
+        margin-bottom: 5px;
+      }
+
       .message-text {
         font-size: 16px;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        align-content: flex-end;
+
+        .margin-right-10 {
+          margin-right: 10px;
+        }
       }
     }
   }
@@ -42,6 +58,12 @@
     width: 100%;
     background-color: #EEEEEE;
     height: 75px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
 
     input {
       font-size: 16px;
@@ -69,4 +91,30 @@
       }
     }
   }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-button {
+  width: 8px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #eee;
+  border: thin solid lightgray;
+  box-shadow: 0 0 3px #dfdfdf inset;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #999;
+  border: thin solid gray;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7d7d7d;
 }

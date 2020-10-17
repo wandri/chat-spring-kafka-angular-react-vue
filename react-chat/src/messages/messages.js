@@ -17,11 +17,28 @@ export class Messages extends Component {
         this.handleMessageChange = this.handleMessageChange.bind(this);
     }
 
+    static isToday(date) {
+        const today = new Date();
+        return date.getDate() === today.getDate()
+            && date.getMonth() === today.getMonth()
+            && date.getFullYear() === today.getFullYear();
+    }
+
+    static getDateWithFormat(date, isToday) {
+        let options;
+        if (isToday) {
+            options = {hour: '2-digit', minute: 'numeric'};
+        } else {
+            options = {year: 'numeric', month: 'long', day: 'numeric'};
+        }
+        return new Intl.DateTimeFormat('en-GB', options).format(date);
+    }
+
     componentDidMount() {
         axios.get(`${this.server}/messages`)
             .then(response => {
                 const messages = response.data.map(message => ({...message, date: new Date(message.date)}));
-                this.setState({messages: messages})
+                this.setState({messages: messages});
             });
         this.connect();
     }
@@ -65,7 +82,7 @@ export class Messages extends Component {
                                 className="message-date">{Messages.getDateWithFormat(message.date, false)}</div>) : null}
                     </div>
                 </div>
-            )
+            );
         });
         return <div className="messages">{messages}</div>;
     }
@@ -95,13 +112,6 @@ export class Messages extends Component {
         return userId === this.props.user.id;
     }
 
-    static isToday(date) {
-        const today = new Date();
-        return date.getDate() === today.getDate()
-            && date.getMonth() === today.getMonth()
-            && date.getFullYear() === today.getFullYear();
-    }
-
     render() {
         return (
             <div className="message-component">
@@ -118,16 +128,6 @@ export class Messages extends Component {
                     </div>
                 </form>
             </div>
-        )
-    }
-
-    static getDateWithFormat(date, isToday) {
-        let options;
-        if (isToday) {
-            options = {hour: '2-digit', minute: 'numeric'};
-        } else {
-            options = {year: 'numeric', month: 'long', day: 'numeric'};
-        }
-        return new Intl.DateTimeFormat('en-GB', options).format(date);
+        );
     }
 }

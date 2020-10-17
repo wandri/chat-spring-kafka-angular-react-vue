@@ -25,7 +25,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   activateUser() {
-    if ( this.userName.value && this.userName.value !== '' ) {
+    if (this.userName.value && this.userName.value !== '') {
       this.userService.getUser(this.userName.value)
         .then(user => this.user = user);
     }

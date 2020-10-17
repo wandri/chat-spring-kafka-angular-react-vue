@@ -1,16 +1,16 @@
-<div class="application-component" fxFlexFill fxLayout="row" fxLayoutAlign="center center">
+<div class="application-component">
   <div class="application-container">
     <ng-container *ngIf="!user">
-      <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill fxLayoutGap="15px">
-        <h1>
+      <div class="userForm">
+        <h1 class="marginBottom15">
           Welcome to the chat
         </h1>
-        <div>
+        <div class="marginBottom15">
           What is your name ?
         </div>
-        <form (submit)="activateUser()" fxLayoutGap="15px" fxLayout="column" fxLayoutAlign="center center">
-          <input type="text" [formControl]="userName" #userInput>
-          <button type="submit" *ngIf="userName.value" mat-flat-button color="primary">
+        <form (submit)="activateUser()">
+          <input #userInput [formControl]="userName" class="marginBottom15" type="text">
+          <button *ngIf="userName.value" type="submit">
             Let's go!
           </button>
         </form>

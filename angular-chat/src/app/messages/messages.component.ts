@@ -55,7 +55,7 @@ export class MessagesComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   disconnect() {
-    if ( this.ws != null ) {
+    if (this.ws != null) {
       this.ws.ws.close();
     }
     console.warn('Disconnected');

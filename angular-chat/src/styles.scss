@@ -1,14 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-
-@import '~@angular/material/theming';
-@import 'theme.scss';
-
-@include mat-core();
-$my-app-primary: mat-palette($material-theme);
-$my-app-accent: mat-palette($mat-pink, 500, 900, A100);
-$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent);
-
-@include angular-material-theme($my-app-theme);
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 html, body {
   height: 100%;
