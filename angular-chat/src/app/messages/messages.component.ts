@@ -1,10 +1,10 @@
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { Stomp } from 'stompjs/lib/stomp.js';
-import { MessageService } from './message.service';
-import { Message } from './message.interface';
-import { User } from '../user/user.interface';
-import { environment } from '../../environments/environment';
+import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {FormControl} from '@angular/forms';
+import {Stomp} from 'stompjs/lib/stomp.js';
+import {MessageService} from './message.service';
+import {Message} from './message.interface';
+import {User} from '../user/user.interface';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-messages',

@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './App.scss';
 import axios from 'axios';
-import { Messages } from './messages/messages';
+import {Messages} from './messages/messages';
 import Button from '@material-ui/core/Button';
 
 class App extends Component {

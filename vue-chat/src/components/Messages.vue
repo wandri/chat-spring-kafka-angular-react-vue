@@ -3,6 +3,7 @@
     <div class="message-container">
       <div class="messages">
         <div v-for="message in messages"
+             v-bind:key="message"
              v-bind:class="isCurrentUser(message.userId) ? 'current-user' : 'other-user'">
           <div class="bubble">
             <div v-if="!isCurrentUser(message.userId)" class="user-name">
@@ -33,68 +34,74 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import { User } from '@/user.interface';
-import { Stomp } from 'stompjs/lib/stomp.js';
-import axios, { AxiosResponse } from 'axios';
+import axios, {AxiosResponse} from 'axios';
+import {Options, Vue} from "vue-class-component";
+import {Client} from "@stomp/stompjs";
+import {Message} from "@/components/message.interface";
 
 const server = 'http://localhost:8000';
 const webSocket = 'ws://localhost:8000/socket';
 
-@Component
-export default class Messages extends Vue {
-  public messages: Messages[];
-  public message: string;
-
-  private ws: any;
-  @Prop() private user!: User;
-
-  constructor() {
-    super();
-    this.message = '';
-    this.messages = [];
+@Options({
+  props: {
+    user: Object
   }
+})
+export default class Messages extends Vue {
+  messages: Message[] = [];
+  message = "";
+  user!: any;
+  private ws: Client = new Client({
+    brokerURL: webSocket,
+    onConnect: () => {
+      this.ws.subscribe('/chat', (frame: { body: string }) => {
+        const message = JSON.parse(frame.body);
+        const formattedMessage = {...message, date: new Date(message.date)};
+        this.messages = [...this.messages, formattedMessage];
+      });
+    }
+  });
 
-  public created() {
+  public created(): void {
     axios.get(`${server}/messages`)
         .then((response: AxiosResponse) => {
           this.messages = response.data.map((message: any) => ({...message, date: new Date(message.date)}));
         });
   }
 
-  public sendMessage(event: Event) {
+  public sendMessage(event: Event): void {
     event.preventDefault();
     if (this.message !== '') {
       const body = {
         text: this.message,
         userId: this.user.id,
       };
-      return axios.post(`${server}/messages/new`, body)
+      axios.post(`${server}/messages/new`, body)
           .then(() => this.message = '');
     }
   }
 
-  public isCurrentUser(userId: string) {
+  public isCurrentUser(userId: string): boolean {
     return userId === this.user.id;
   }
 
-  public isToday(date: Date) {
+  public isToday(date: Date): boolean {
     const today = new Date();
     return date.getDate() === today.getDate()
         && date.getMonth() === today.getMonth()
         && date.getFullYear() === today.getFullYear();
   }
 
-  public mounted() {
+  public mounted(): void {
     this.connect();
   }
 
-  public destroyed() {
+  public destroyed(): void {
     this.disconnect();
   }
 
-  public getDateWithFormat(date: Date, isToday: boolean) {
-    let options;
+  public getDateWithFormat(date: Date, isToday: boolean): string {
+    let options: Intl.DateTimeFormatOptions;
     if (isToday) {
       options = {hour: '2-digit', minute: 'numeric'};
     } else {
@@ -103,22 +110,13 @@ export default class Messages extends Vue {
     return new Intl.DateTimeFormat('en-GB', options).format(date);
   }
 
-  private connect() {
-    const socket = new WebSocket(webSocket);
-    this.ws = Stomp.over(socket);
-    this.ws.connect({}, () => {
-      this.ws.subscribe('/chat', (frame: { body: string }) => {
-        const message = JSON.parse(frame.body);
-        const formatedMessage = {...message, date: new Date(message.date)};
-        this.messages = [...this.messages, formatedMessage];
-      });
-    });
+  private connect(): void {
+    this.ws.activate();
+
   }
 
   private disconnect() {
-    if (this.ws != null) {
-      this.ws.ws.close();
-    }
+    this.ws.deactivate();
   }
 }
 </script>

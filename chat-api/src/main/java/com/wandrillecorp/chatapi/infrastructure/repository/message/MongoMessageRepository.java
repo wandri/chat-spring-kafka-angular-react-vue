@@ -33,7 +33,7 @@ public class MongoMessageRepository implements MessageRepository {
     @Override
     public List<Message> findAllOrderByDate() {
         Query query = new Query();
-        query.with(new Sort(ASC, "date"));
+        query.with(Sort.by(ASC, "date"));
         return mongoOperations.find(query, Message.class);
     }
 }

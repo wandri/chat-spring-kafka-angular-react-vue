@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { UserService } from './user/user.service';
-import { User } from './user/user.interface';
+import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
+import {FormControl} from '@angular/forms';
+import {UserService} from './user/user.service';
+import {User} from './user/user.interface';
 
 @Component({
   selector: 'app-root',

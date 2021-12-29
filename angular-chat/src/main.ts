@@ -1,8 +1,8 @@
-import { enableProdMode } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import {enableProdMode} from '@angular/core';
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 
-import { AppModule } from '../../angular-chat/src/app/app.module';
-import { environment } from '../../angular-chat/src/environments/environment';
+import {AppModule} from '../../angular-chat/src/app/app.module';
+import {environment} from '../../angular-chat/src/environments/environment';
 
 if (environment.production) {
   enableProdMode();

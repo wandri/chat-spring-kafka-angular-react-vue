@@ -21,28 +21,23 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { User } from '@/user.interface';
-import axios, { AxiosResponse } from 'axios';
-import Messages from '@/components/Messages.vue';
+import {User} from './user.interface';
+import axios, {AxiosResponse} from 'axios';
+import Messages from './components/Messages.vue';
+import {Options, Vue} from "vue-class-component";
 
 const server = 'http://localhost:8000';
 
-@Component({
+@Options({
+  props: {},
   components: {
     messages: Messages,
   },
 })
 export default class App extends Vue {
 
-  public userName: string;
-  public user: User | null;
-
-  constructor() {
-    super();
-    this.userName = '';
-    this.user = null;
-  }
+  public userName = '';
+  public user: User | null = null;
 
   public activeUser(e: Event) {
     e.preventDefault();
@@ -60,7 +55,7 @@ export default class App extends Vue {
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
-html, body, #root {
+html, body, #app {
   height: 100%;
   margin: 0;
 }
