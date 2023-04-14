@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {UserService} from './user/user.service';
 import {User} from './user/user.interface';
 
@@ -13,7 +13,7 @@ export class AppComponent implements AfterViewInit {
   @ViewChild('userInput')
   userInput: ElementRef;
 
-  userName = new FormControl('');
+  userName = new UntypedFormControl('');
 
   user: User;
 

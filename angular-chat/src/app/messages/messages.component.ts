@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {Stomp} from 'stompjs/lib/stomp.js';
 import {MessageService} from './message.service';
 import {Message} from './message.interface';
@@ -20,7 +20,7 @@ export class MessagesComponent implements OnInit, OnDestroy, AfterViewInit {
   messageInput: ElementRef;
 
   messages: Message[] = [];
-  name = new FormControl('');
+  name = new UntypedFormControl('');
   ws: any;
 
   constructor(private messageService: MessageService) {
