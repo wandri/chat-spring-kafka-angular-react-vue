@@ -3,8 +3,8 @@
     <div class="message-container">
       <div class="messages">
         <div v-for="message in messages"
-             v-bind:key="message"
-             v-bind:class="isCurrentUser(message.userId) ? 'current-user' : 'other-user'">
+             :key="message"
+             :class="isCurrentUser(message.userId) ? 'current-user' : 'other-user'">
           <div class="bubble">
             <div v-if="!isCurrentUser(message.userId)" class="user-name">
               {{ message.userName }}
@@ -12,8 +12,8 @@
             <div class="message-text">
               <span class="margin-right-10">{{ message.text }}</span>
               <span v-if="isToday(message.date)" class="message-date">
-                                {{ getDateWithFormat(message.date, true) }}
-                            </span>
+                {{ getDateWithFormat(message.date, true) }}
+              </span>
             </div>
             <div v-if="!isToday(message.date)" class="message-date">
               {{ getDateWithFormat(message.date, false) }}
@@ -23,7 +23,7 @@
       </div>
     </div>
     <form class="message-form" @submit="sendMessage">
-      <input v-model="message" placeholder="Write your message..." type="text"/>
+      <input v-model="message" placeholder="Write your message..." type="text" />
       <div class="send-button">
         <button type="submit">
           send
@@ -33,91 +33,82 @@
   </div>
 </template>
 
-<script lang="ts">
-import axios, {AxiosResponse} from 'axios';
-import {Options, Vue} from "vue-class-component";
-import {Client} from "@stomp/stompjs";
-import {Message} from "@/components/message.interface";
+<script setup lang="ts">
+import axios, { AxiosResponse } from "axios";
+import { Client } from "@stomp/stompjs";
+import { User } from "@/user.interface";
+import { onMounted, onUnmounted, ref } from "vue";
+import type { Message } from "@/components/message.interface";
 
-const server = 'http://localhost:8000';
-const webSocket = 'ws://localhost:8000/socket';
+const server = "http://localhost:8000";
+const webSocket = "ws://localhost:8000/socket";
 
-@Options({
-  props: {
-    user: Object
+const props = defineProps({ user: { type: User, required: true } });
+
+let messages = ref<Message[]>([]);
+let message = ref<string>("");
+
+const ws: Client = new Client({
+  brokerURL: webSocket,
+  onConnect: () => {
+    ws.subscribe("/chat", (frame: { body: string }) => {
+      const message = JSON.parse(frame.body);
+      const formattedMessage = { ...message, date: new Date(message.date) };
+      messages.value = [...messages.value, formattedMessage];
+    });
   }
-})
-export default class Messages extends Vue {
-  messages: Message[] = [];
-  message = "";
-  user!: any;
-  private ws: Client = new Client({
-    brokerURL: webSocket,
-    onConnect: () => {
-      this.ws.subscribe('/chat', (frame: { body: string }) => {
-        const message = JSON.parse(frame.body);
-        const formattedMessage = {...message, date: new Date(message.date)};
-        this.messages = [...this.messages, formattedMessage];
-      });
-    }
-  });
+});
 
-  public created(): void {
-    axios.get(`${server}/messages`)
-        .then((response: AxiosResponse) => {
-          this.messages = response.data.map((message: any) => ({...message, date: new Date(message.date)}));
-        });
+function sendMessage(event: Event): void {
+  event.preventDefault();
+  if (message.value !== "") {
+    const body = {
+      text: message.value,
+      userId: props.user.id
+    };
+    axios.post(`${server}/messages/new`, body)
+      .then(() => message.value = "");
   }
+}
 
-  public sendMessage(event: Event): void {
-    event.preventDefault();
-    if (this.message !== '') {
-      const body = {
-        text: this.message,
-        userId: this.user.id,
-      };
-      axios.post(`${server}/messages/new`, body)
-          .then(() => this.message = '');
-    }
+function isCurrentUser(userId: string): boolean {
+  return userId === props.user.id;
+}
+
+function isToday(date: Date): boolean {
+  const today = new Date();
+  return date.getDate() === today.getDate()
+    && date.getMonth() === today.getMonth()
+    && date.getFullYear() === today.getFullYear();
+}
+
+onMounted(() => {
+  axios.get(`${server}/messages`)
+    .then((response: AxiosResponse) => {
+      messages.value = response.data.map((message: any) => ({ ...message, date: new Date(message.date) }));
+    }).then(() => connect());
+});
+
+onUnmounted(() => {
+  disconnect();
+});
+
+function getDateWithFormat(date: Date, isToday: boolean): string {
+  let options: Intl.DateTimeFormatOptions;
+  if (isToday) {
+    options = { hour: "2-digit", minute: "numeric" };
+  } else {
+    options = { year: "numeric", month: "long", day: "numeric" };
   }
+  return new Intl.DateTimeFormat("en-GB", options).format(date);
+}
 
-  public isCurrentUser(userId: string): boolean {
-    return userId === this.user.id;
-  }
+function connect(): void {
+  ws.activate();
+}
 
-  public isToday(date: Date): boolean {
-    const today = new Date();
-    return date.getDate() === today.getDate()
-        && date.getMonth() === today.getMonth()
-        && date.getFullYear() === today.getFullYear();
-  }
-
-  public mounted(): void {
-    this.connect();
-  }
-
-  public destroyed(): void {
-    this.disconnect();
-  }
-
-  public getDateWithFormat(date: Date, isToday: boolean): string {
-    let options: Intl.DateTimeFormatOptions;
-    if (isToday) {
-      options = {hour: '2-digit', minute: 'numeric'};
-    } else {
-      options = {year: 'numeric', month: 'long', day: 'numeric'};
-    }
-    return new Intl.DateTimeFormat('en-GB', options).format(date);
-  }
-
-  private connect(): void {
-    this.ws.activate();
-
-  }
-
-  private disconnect() {
-    this.ws.deactivate();
-  }
+function disconnect() {
+  ws.deactivate();
 }
 </script>
 

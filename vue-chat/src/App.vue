@@ -6,9 +6,9 @@
           Welcome to the chat
         </h1>
         <div class="marginBottom15">
-          What is your name ?
+          What is your name?
         </div>
-        <form @submit="activeUser">
+        <form @submit.prevent="activeUser">
           <input v-model="userName" class="marginBottom15" type="text">
           <button v-if="userName !== ''" type="submit">
             Let's go!
@@ -20,33 +20,24 @@
   </div>
 </template>
 
-<script lang="ts">
-import {User} from './user.interface';
-import axios, {AxiosResponse} from 'axios';
-import Messages from './components/Messages.vue';
-import {Options, Vue} from "vue-class-component";
+<script setup lang="ts">
+import axios, { AxiosResponse } from "axios";
+import type { User } from "@/user.interface";
+import Messages from "@/components/Messages.vue";
+import { ref } from "vue";
 
-const server = 'http://localhost:8000';
+const server = "http://localhost:8000";
 
-@Options({
-  props: {},
-  components: {
-    messages: Messages,
-  },
-})
-export default class App extends Vue {
+let userName = ref<string>("");
+let user = ref<User | null>(null);
 
-  public userName = '';
-  public user: User | null = null;
 
-  public activeUser(e: Event) {
-    e.preventDefault();
-    if (this.userName) {
-      return axios.post(`${server}/users`, {name: this.userName}).then((response: AxiosResponse) => {
-        this.user = response ? response.data : null;
-        this.userName = '';
-      });
-    }
+function activeUser() {
+  if (userName.value) {
+    return axios.post(`${server}/users`, { name: userName.value }).then((response: AxiosResponse) => {
+      user.value = response ? response.data : null;
+      userName.value = "";
+    });
   }
 }
 </script>
