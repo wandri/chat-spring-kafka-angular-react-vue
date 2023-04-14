@@ -9,7 +9,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 
-@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:5173","http://localhost:8080"}, maxAge = 3600)
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:5173","http://localhost:3000"}, maxAge = 3600)
 @RestController
 @RequestMapping("/users")
 public class UserController {
