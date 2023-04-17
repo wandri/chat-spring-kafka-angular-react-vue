@@ -1,6 +1,5 @@
 # Chat : Full-stack coding exercise
 
-
 ## Presentation
 
 This application is a Whatsapp-like application. It provides realtime conversations with other people.
@@ -14,11 +13,11 @@ The api is done with Java 8 and Spring Boot 2.
 It provides a websocket connection for realtime conversation.
 
 ### Multiple Fronts
-- [Angular](https://angular.io). It's written in typeScript. 
+- [Angular](https://angular.io) (Typescript & scss)
 
-- [React](https://reactjs.org/)
+- [React](https://reactjs.org/) (Typescript & scss)
 
-- [Vue](https://fr.vuejs.org/). It's written in typeScript. 
+- [Vue](https://fr.vuejs.org/) (Typescript & scss)
 
 ## Initiate the stack locally
 
@@ -82,7 +81,7 @@ npm start
 
 #### Vue
 
-Run the application in localhost:8080 in the front folder : 
+Run the application in localhost:5173 in the front folder : 
 ```
 npm run serve
 ```
@@ -92,5 +91,5 @@ npm run serve
 - The api is not completely independent. It will be better if we don't use `User` and `Message` from the domain. 
 We need to create new classes for the API and map `Domain` and `User` to them.
 - For the purpose of the project, there is **NO test**. And this is a bad practice. We need to improve the test coverage.
-- The format of messages are known. It could be interesting to check if SQL can be better.
+- The format of messages is known. It could be interesting to check if SQL can be better.
 - I use Angular to iterate quickly. But For better performance, it can be done without any framework, in pure JS.
