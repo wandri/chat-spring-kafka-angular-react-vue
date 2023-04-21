@@ -107,5 +107,10 @@ jobs:
           cd chat-api
           mvn spring-boot:run  &
           sleep 5
+      - name: Install and run cypress
+        run: |
+          cd chat-tests
+          npm ci
+          npm run start
     
 
