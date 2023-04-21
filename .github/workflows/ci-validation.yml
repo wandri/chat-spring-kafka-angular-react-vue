@@ -39,8 +39,8 @@ jobs:
         run: |
           cd react-chat &&
           npm ci &&
-          npm run build &&
-#          npm run
+          npm run build
+#         && npm run
   Check-Vue:
     runs-on: ubuntu-latest
     steps:
