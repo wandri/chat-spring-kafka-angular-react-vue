@@ -3,7 +3,7 @@
     <package-json value="$PROJECT_DIR$/chat-tests/package.json" />
     <command value="run" />
     <scripts>
-      <script value="run" />
+      <script value="start" />
     </scripts>
     <node-interpreter value="project" />
     <envs />

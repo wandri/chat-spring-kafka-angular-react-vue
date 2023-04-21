@@ -4,7 +4,7 @@
   "description": "tests",
   "scripts": {
     "open": "npx cypress open --e2e",
-    "run": "npx cypress run --e2e"
+    "start": "npx cypress run --e2e"
   },
   "author": "",
   "license": "ISC",

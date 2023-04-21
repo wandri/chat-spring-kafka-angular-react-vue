@@ -6,10 +6,10 @@ name: CI Deployment Github Action
 on:
   workflow_dispatch:
   push:
-    branches: [ "master" ]
+    branches: [ "test-ci", "master" ]
 
 jobs:
-  build_angular:
+  Check-Angular:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -19,12 +19,16 @@ jobs:
           cache: 'npm'
           cache-dependency-path: |
             angular-chat/package-lock.json
-      - name: Install and build Angular
-        run: |
-          cd angular-chat
-          npm ci
-          npm run build
-  build_react:
+      - name: Install
+        run: npm ci
+        working-directory: angular-chat
+      - name: Build
+        run: npm run build
+        working-directory: angular-chat
+      - name: Test
+        run: npm run test:prod
+        working-directory: angular-chat
+  Check-React:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -34,12 +38,13 @@ jobs:
           cache: 'npm'
           cache-dependency-path: |
             react-chat/package-lock.json
-      - name: Install and build Angular
-        run: |
-          cd react-chat
-          npm ci
-          npm run build
-  build_vue:
+      - name: Install
+        run: npm ci
+        working-directory: react-chat
+      - name: Build
+        run: npm run build
+        working-directory: react-chat
+  Check-Vue:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -49,8 +54,63 @@ jobs:
           cache: 'npm'
           cache-dependency-path: |
             vue-chat/package-lock.json
-      - name: Install and build Angular
+      - name: Install
+        run: npm ci
+        working-directory: vue-chat
+      - name: Build
+        run: npm run build
+        working-directory: vue-chat
+      - name: Test
+        run: npm run test:unit
+        working-directory: vue-chat
+  Run-E2E:
+#    needs: [ Check-Vue,Check-Angular,Check-React ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+          cache-dependency-path: |
+            vue-chat/package-lock.json
+            react-chat/package-lock.json
+            angular-chat/package-lock.json
+      - name: Start Angular
         run: |
-          cd vue-chat
+          cd angular-chat &&
+          npm ci && 
+          npm run start &
+          sleep 5
+      - name: Start React
+        run: |
+          cd react-chat &&
+          npm ci && 
+          npm run dev &
+          sleep 5
+      - name: Start React
+        run: |
+          cd vue-chat &&
+          npm ci && 
+          npm run dev  &
+          sleep 5
+      - name: Run docker-compose
+        run: |
+          cd deploy && 
+          docker compose -f docker-compose.yml up -d
+      - name: Install mvn packages
+        run: |
+          cd chat-api
+          mvn compile
+      - name: Start backend
+        run: |
+          cd chat-api
+          mvn spring-boot:run  &
+          sleep 5
+      - name: Install and run cypress
+        run: |
+          cd chat-tests
           npm ci
-          npm run build
+          npm run start
+    
+
