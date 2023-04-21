@@ -31,7 +31,7 @@ We can achieve to code a chat without any store or message broker. But if we do 
 2. Install [docker-compose](https://docs.docker.com/compose/install/)
 3. To run Kafka and Mongo images, execute in the deploy folder: 
     ```
-    docker-compose -f docker-compose.yml up -d
+    docker compose -f docker-compose.yml up -d
     ```
 ### API
 
