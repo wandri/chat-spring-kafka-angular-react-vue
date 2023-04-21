@@ -97,6 +97,6 @@ jobs:
       - name: Run docker-compose
         run: |
           cd deploy && 
-          docker-compose -f docker-compose.yml up -d
+          docker compose -f docker-compose.yml up -d
     
 
