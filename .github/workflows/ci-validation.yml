@@ -96,6 +96,7 @@ jobs:
           sleep 5
       - name: Run docker-compose
         run: |
+          cd deploy && 
           docker-compose -f docker-compose.yml up -d
     
 
