@@ -80,16 +80,19 @@ jobs:
         run: |
           cd angular-chat &&
           npm ci && 
-          npm run start
+          npm run start &
+          sleep 5
       - name: Start React
         run: |
           cd react-chat &&
           npm ci && 
-          npm run dev
+          npm run dev &
+          sleep 5
       - name: Start React
         run: |
           cd vue-chat &&
           npm ci && 
-          npm run dev 
+          npm run dev  &
+          sleep 5
     
 
