@@ -23,7 +23,8 @@ jobs:
         run: |
           cd angular-chat &&
           npm ci &&
-          npm run build
+          npm run build && 
+          npm run test
   Check-React:
     runs-on: ubuntu-latest
     steps:
@@ -34,11 +35,12 @@ jobs:
           cache: 'npm'
           cache-dependency-path: |
             react-chat/package-lock.json
-      - name: Install and build Angular
+      - name: Install and build React
         run: |
           cd react-chat &&
           npm ci &&
-          npm run build
+          npm run build &&
+#          npm run
   Check-Vue:
     runs-on: ubuntu-latest
     steps:
@@ -49,11 +51,12 @@ jobs:
           cache: 'npm'
           cache-dependency-path: |
             vue-chat/package-lock.json
-      - name: Install and build Angular
+      - name: Install and build Vue
         run: |
           cd vue-chat &&
           npm ci &&
-          npm run build
+          npm run build &&
+          npm run test:unit
   Run-E2E:
     needs: [ Check-Vue,Check-Angular,Check-React ]
     runs-on: ubuntu-latest
@@ -71,7 +74,7 @@ jobs:
         run: |
           cd angular-chat &&
           npm ci && 
-          npm run serve
+          npm run start
       - name: Start React
         run: |
           cd react-chat &&
