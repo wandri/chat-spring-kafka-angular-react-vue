@@ -1,0 +1,15 @@
+{
+  "json": {
+    "enabled": true,
+    "output": "cucumber-report.json"
+  },
+  "html": {
+    "enabled": true
+  },
+  "stepDefinitions": [
+    "cypress/e2e/[filepath].ts",
+    "cypress/e2e/common-step-definitions/*.ts"
+  ],
+  "omitFiltered": true,
+  "filterSpecs": true
+}

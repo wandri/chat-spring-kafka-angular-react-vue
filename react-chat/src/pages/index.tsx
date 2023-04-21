@@ -18,7 +18,7 @@ export default function Home() {
 
   function displayUserInput() {
     return (
-      <div className="userForm">
+      <div className="userForm" data-cy="user-form">
         <h1 className="marginBottom15">
           Welcome to the chat
         </h1>
@@ -51,7 +51,7 @@ export default function Home() {
   }
 
   return (
-    <main className="application-component">
+    <main className="application-component" data-cy="application-component">
       <div className="application-container">
         {user ? displayMessages() : displayUserInput()}
       </div>

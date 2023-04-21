@@ -1,0 +1,17 @@
+{
+  "name": "cypress",
+  "version": "1.0.0",
+  "description": "tests",
+  "scripts": {
+    "open": "npx cypress open --e2e",
+    "run": "npx cypress run --e2e"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^12.10.0",
+    "typescript": "^5.0.4",
+    "@badeball/cypress-cucumber-preprocessor": "^16.0.3",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0"
+  }
+}

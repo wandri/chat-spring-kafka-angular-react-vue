@@ -2,3 +2,9 @@
 .idea/*
 target
 .DS_Store
+/chat-tests/cucumber-messages.ndjson
+/chat-tests/cucumber-report.html
+/chat-tests/cucumber-report.json
+/chat-tests/cypress/screenshots/
+/chat-tests/cypress/videos/
+/chat-tests/node_modules/

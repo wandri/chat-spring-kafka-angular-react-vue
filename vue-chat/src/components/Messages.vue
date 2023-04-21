@@ -1,10 +1,10 @@
 <template>
-  <div class="message-component">
+  <div class="message-component" data-cy="message-component">
     <div class="message-container">
       <div class="messages">
         <div v-for="message in messages"
              :key="message"
-             :class="isCurrentUser(message.userId) ? 'current-user' : 'other-user'">
+             :class="isCurrentUser(message.userId) ? 'current-user' : 'other-user'" data-cy="message">
           <div class="bubble">
             <div v-if="!isCurrentUser(message.userId)" class="user-name">
               {{ message.userName }}
@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-    <form class="message-form" @submit="sendMessage">
+    <form class="message-form" @submit="sendMessage" data-cy="message-form">
       <input v-model="message" placeholder="Write your message..." type="text" />
       <div class="send-button">
         <button type="submit">
@@ -34,24 +34,24 @@
 </template>
 
 <script setup lang="ts">
-import axios, { AxiosResponse } from "axios";
-import { Client } from "@stomp/stompjs";
-import { User } from "@/user.interface";
-import { onMounted, onUnmounted, ref } from "vue";
-import type { Message } from "@/components/message.interface";
+import axios, { AxiosResponse } from 'axios';
+import { Client } from '@stomp/stompjs';
+import { User } from '@/user.interface';
+import { onMounted, onUnmounted, ref } from 'vue';
+import type { Message } from '@/components/message.interface';
 
-const server = "http://localhost:8000";
-const webSocket = "ws://localhost:8000/socket";
+const server = 'http://localhost:8000';
+const webSocket = 'ws://localhost:8000/socket';
 
 const props = defineProps({ user: { type: User, required: true } });
 
 let messages = ref<Message[]>([]);
-let message = ref<string>("");
+let message = ref<string>('');
 
 const ws: Client = new Client({
   brokerURL: webSocket,
   onConnect: () => {
-    ws.subscribe("/chat", (frame: { body: string }) => {
+    ws.subscribe('/chat', (frame: { body: string }) => {
       const message = JSON.parse(frame.body);
       const formattedMessage = { ...message, date: new Date(message.date) };
       messages.value = [...messages.value, formattedMessage];
@@ -61,13 +61,13 @@ const ws: Client = new Client({
 
 function sendMessage(event: Event): void {
   event.preventDefault();
-  if (message.value !== "") {
+  if (message.value !== '') {
     const body = {
       text: message.value,
       userId: props.user.id
     };
     axios.post(`${server}/messages/new`, body)
-      .then(() => message.value = "");
+      .then(() => message.value = '');
   }
 }
 
@@ -96,11 +96,11 @@ onUnmounted(() => {
 function getDateWithFormat(date: Date, isToday: boolean): string {
   let options: Intl.DateTimeFormatOptions;
   if (isToday) {
-    options = { hour: "2-digit", minute: "numeric" };
+    options = { hour: '2-digit', minute: 'numeric' };
   } else {
-    options = { year: "numeric", month: "long", day: "numeric" };
+    options = { year: 'numeric', month: 'long', day: 'numeric' };
   }
-  return new Intl.DateTimeFormat("en-GB", options).format(date);
+  return new Intl.DateTimeFormat('en-GB', options).format(date);
 }
 
 function connect(): void {

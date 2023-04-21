@@ -80,7 +80,7 @@ export default function Messages(props: { user: User | null }) {
   function displayMessages() {
     let newMessages = messages.map(message => {
       return (
-        <div key={message.id} className={isCurrentUser(message.userId) ? styles.current_user : styles.other_user}>
+        <div key={message.id} className={isCurrentUser(message.userId) ? styles.current_user : styles.other_user} data-cy="message">
           <div className={styles.bubble}>
             <div className={styles.user_name}>
               {message.userName}
@@ -106,11 +106,11 @@ export default function Messages(props: { user: User | null }) {
   }
 
   return (
-    <div className={styles.message_component}>
+    <div className={styles.message_component} data-cy="message-component">
       <div className={styles.message_container}>
         {displayMessages()}
       </div>
-      <form className={styles.message_form} onSubmit={sendMessage}>
+      <form className={styles.message_form} onSubmit={sendMessage} data-cy="message-form">
         <input type="text" value={message} onChange={handleMessageChange}
                placeholder="Write your message..." />
         <div className={styles.send_button}>

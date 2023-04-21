@@ -1,7 +1,7 @@
 <template>
-  <div class="application-component">
+  <div class="application-component" data-cy="application-component">
     <div class="application-container">
-      <div v-if="!user" class="userForm">
+      <div v-if="!user" class="userForm" data-cy="user-form">
         <h1 class="marginBottom15">
           Welcome to the chat
         </h1>

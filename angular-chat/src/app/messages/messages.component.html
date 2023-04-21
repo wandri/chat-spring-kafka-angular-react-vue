@@ -1,8 +1,8 @@
-<div class="message-component">
+<div class="message-component" data-cy="message-component">
   <div #scroll [scrollTop]="scroll.scrollHeight" class="message-container">
     <div class="messages">
       <div *ngFor="let message of messages"
-           [ngClass]="{'current-user': isCurrentUser(message.userId), 'other-user': !isCurrentUser(message.userId)}">
+           [ngClass]="{'current-user': isCurrentUser(message.userId), 'other-user': !isCurrentUser(message.userId)}" data-cy="message">
         <div class="bubble">
           <div *ngIf="!isCurrentUser(message.userId)" class="user-name">
             {{message.userName}}
@@ -20,10 +20,10 @@
       </div>
     </div>
   </div>
-  <form (submit)="send()" class="message-form">
+  <form (submit)="send()" class="message-form" data-cy="message-form">
     <input #messageInput [formControl]="name" placeholder="Write your message..." type="text">
     <div class="send-button">
-      <button [disabled]="name.value === ''" type="submit">
+      <button [disabled]="name.value == ''" type="submit">
         send
       </button>
     </div>

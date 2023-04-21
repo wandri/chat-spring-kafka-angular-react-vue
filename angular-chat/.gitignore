@@ -41,7 +41,7 @@ yarn-error.log
 testem.log
 /typings
 
-# System Files
+# SystemEnum Files
 .DS_Store
 Thumbs.db
 /.angular/
