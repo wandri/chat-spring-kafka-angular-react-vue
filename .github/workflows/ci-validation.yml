@@ -10,7 +10,6 @@ on:
 
 jobs:
   Check-Angular:
-    working-directory: angular-chat
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -19,13 +18,16 @@ jobs:
         with:
           cache: 'npm'
           cache-dependency-path: |
-            ./package-lock.json
+            angular-chat/package-lock.json
       - name: Install
         run: npm ci
+        working-directory: angular-chat
       - name: Build
         run: npm run build
+        working-directory: angular-chat
       - name: Test
         run: npm run test
+        working-directory: angular-chat
   Check-React:
     runs-on: ubuntu-latest
     working-directory: react-chat
@@ -36,13 +38,15 @@ jobs:
         with:
           cache: 'npm'
           cache-dependency-path: |
-            ./package-lock.json
+            react-chat/package-lock.json
       - name: Install
         run: npm ci
+        working-directory: react-chat
       - name: Build
         run: npm run build
+        working-directory: react-chat
   Check-Vue:
-    working-directory: vue-chat
+    working-directory: react-chat
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -51,13 +55,16 @@ jobs:
         with:
           cache: 'npm'
           cache-dependency-path: |
-            ./package-lock.json
+            vue-chat/package-lock.json
       - name: Install
         run: npm ci
+        working-directory: vue-chat
       - name: Build
         run: npm run build
+        working-directory: vue-chat
       - name: Test
         run: npm run test:unit
+        working-directory: vue-chat
   Run-E2E:
     needs: [ Check-Vue,Check-Angular,Check-React ]
     runs-on: ubuntu-latest
