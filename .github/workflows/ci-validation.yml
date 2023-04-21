@@ -64,7 +64,7 @@ jobs:
         run: npm run test:unit
         working-directory: vue-chat
   Run-E2E:
-#    needs: [ Check-Vue,Check-Angular,Check-React ]
+    needs: [ Check-Vue,Check-Angular,Check-React ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
