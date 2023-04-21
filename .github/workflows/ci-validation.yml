@@ -30,7 +30,6 @@ jobs:
         working-directory: angular-chat
   Check-React:
     runs-on: ubuntu-latest
-    working-directory: react-chat
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js
@@ -46,7 +45,6 @@ jobs:
         run: npm run build
         working-directory: react-chat
   Check-Vue:
-    working-directory: react-chat
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
