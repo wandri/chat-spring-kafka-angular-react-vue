@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Button } from "@mui/material";
-import { User } from "@/pages/user.interface";
+import { User } from "@/interface/user.interface";
 import Messages from "@/pages/messages/Messages";
 
 const server = "http://localhost:8000";
@@ -9,7 +9,7 @@ const server = "http://localhost:8000";
 export default function Home() {
 
   const [user, setUser] = useState<User | null>(null);
-  const [userName, setUserName] = useState("");
+  const [userName, setUserName] = useState(``);
 
   function handleUserNameChange(event: { target: { value: React.SetStateAction<string>; }; }) {
     // @ts-ignore
@@ -29,7 +29,7 @@ export default function Home() {
           <input className="marginBottom15" type="text" value={userName}
                  onChange={handleUserNameChange} />
           <Button type="submit" variant="contained" color="primary">
-            Let's go!
+            Let&apos;s go!
           </Button>
         </form>
       </div>
@@ -42,7 +42,7 @@ export default function Home() {
 
   function activeUser(event: { preventDefault: () => void; }) {
     event.preventDefault();
-    if (userName !== "") {
+    if (userName !== ``) {
       return axios.post(`${server}/users`, { name: userName }).then(response => {
           setUser(response.data);
         },

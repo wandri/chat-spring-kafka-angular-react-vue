@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../styles/Message.module.scss";
-import axios, { AxiosResponse } from "axios";
-import { Message } from "@/pages/messages/message.interface";
-import { User } from "@/pages/user.interface";
+import axios from "axios";
+import { Message } from "@/interface/message.interface";
+import { User } from "@/interface/user.interface";
 import { Client } from "@stomp/stompjs";
 import { Button } from "@mui/material";
-import SendIcon from '@mui/icons-material/Send';
+import SendIcon from "@mui/icons-material/Send";
+
 export default function Messages(props: { user: User | null }) {
 
   const server = "http://localhost:8000";
@@ -29,7 +30,7 @@ export default function Messages(props: { user: User | null }) {
 
   useEffect(() => {
     axios.get(`${server}/messages`)
-      .then((response: AxiosResponse) => {
+      .then((response: { data: Message[] }) => {
         setMessages(response.data.map((message: any) => ({ ...message, date: new Date(message.date) })));
       }).then(() => connect());
 
@@ -80,7 +81,8 @@ export default function Messages(props: { user: User | null }) {
   function displayMessages() {
     let newMessages = messages.map(message => {
       return (
-        <div key={message.id} className={isCurrentUser(message.userId) ? styles.current_user : styles.other_user} data-cy="message">
+        <div key={message.id} className={isCurrentUser(message.userId) ? styles.current_user : styles.other_user}
+             data-cy="message">
           <div className={styles.bubble}>
             <div className={styles.user_name}>
               {message.userName}

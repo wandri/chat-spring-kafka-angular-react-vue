@@ -21,21 +21,22 @@
 </template>
 
 <script setup lang="ts">
-import axios, { AxiosResponse } from "axios";
-import type { User } from "@/user.interface";
+import { User } from "@/user.interface";
 import Messages from "@/components/Messages.vue";
 import { ref } from "vue";
+import axios from "axios";
 
 const server = "http://localhost:8000";
 
 let userName = ref<string>("");
 let user = ref<User | null>(null);
 
-
 function activeUser() {
   if (userName.value) {
-    return axios.post(`${server}/users`, { name: userName.value }).then((response: AxiosResponse) => {
-      user.value = response ? response.data : null;
+    return axios.post<User>(`${server}/users`, { name: userName.value }).then((response: {
+      data: { name: string, id: string }
+    }) => {
+      user.value = response ? new User(response.data.name, response.data.id) : null;
       userName.value = "";
     });
   }
