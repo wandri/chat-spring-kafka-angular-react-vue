@@ -6,10 +6,10 @@ name: CI Deployment Github Action
 on:
   workflow_dispatch:
   push:
-    branches: [ "master" ]
+    branches: [ "test-ci", "master" ]
 
 jobs:
-  build_angular:
+  Check-Angular:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -21,10 +21,10 @@ jobs:
             angular-chat/package-lock.json
       - name: Install and build Angular
         run: |
-          cd angular-chat
-          npm ci
+          cd angular-chat &&
+          npm ci &&
           npm run build
-  build_react:
+  Check-React:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -36,10 +36,10 @@ jobs:
             react-chat/package-lock.json
       - name: Install and build Angular
         run: |
-          cd react-chat
-          npm ci
+          cd react-chat &&
+          npm ci &&
           npm run build
-  build_vue:
+  Check-Vue:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -51,6 +51,36 @@ jobs:
             vue-chat/package-lock.json
       - name: Install and build Angular
         run: |
-          cd vue-chat
-          npm ci
+          cd vue-chat &&
+          npm ci &&
           npm run build
+  Run-E2E:
+    needs: [ Check-Vue,Check-Angular,Check-React ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+          cache-dependency-path: |
+            vue-chat/package-lock.json
+            react-chat/package-lock.json
+            angular-chat/package-lock.json
+      - name: Start Angular
+        run: |
+          cd angular-chat &&
+          npm ci && 
+          npm run serve
+      - name: Start React
+        run: |
+          cd react-chat &&
+          npm ci && 
+          npm run dev
+      - name: Start React
+        run: |
+          cd vue-chat &&
+          npm ci && 
+          npm run dev 
+    
+
