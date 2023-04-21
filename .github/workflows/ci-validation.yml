@@ -98,5 +98,14 @@ jobs:
         run: |
           cd deploy && 
           docker compose -f docker-compose.yml up -d
+      - name: Install mvn packages
+        run: |
+          cd chat-api
+          mvn compile
+      - name: Start backend
+        run: |
+          cd chat-api
+          mvn spring-boot:run  &
+          sleep 5
     
 
