@@ -1,23 +1,23 @@
-import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
-import {UntypedFormControl} from '@angular/forms';
-import {UserService} from './user/user.service';
-import {User} from './user/user.interface';
+import { AfterViewInit, Component, ElementRef, ViewChild } from "@angular/core";
+import { FormControl } from "@angular/forms";
+import { UserService } from "./user/user.service";
+import { User } from "./user/user.interface";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"]
 })
 export class AppComponent implements AfterViewInit {
 
-  @ViewChild('userInput')
+  @ViewChild("userInput")
   userInput: ElementRef;
 
-  userName = new UntypedFormControl('');
+  userName = new FormControl<string>("");
 
   user: User;
 
-  constructor(private userService: UserService) {
+  constructor(public userService: UserService) {
   }
 
   ngAfterViewInit(): void {
@@ -25,7 +25,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   activateUser() {
-    if (this.userName.value && this.userName.value !== '') {
+    if (this.userName.value && this.userName.value !== "") {
       this.userService.getUser(this.userName.value)
         .then(user => this.user = user);
     }
