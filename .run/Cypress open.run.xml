@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Cypress open" type="js.build_tools.npm">
+  <configuration default="false" name="Cypress open" type="js.build_tools.npm" folderName="E2E">
     <package-json value="$PROJECT_DIR$/e2e-tests/package.json" />
     <command value="run" />
     <scripts>
