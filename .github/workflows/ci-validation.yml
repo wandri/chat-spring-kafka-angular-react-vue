@@ -109,7 +109,7 @@ jobs:
           sleep 5
       - name: Install and run cypress
         run: |
-          cd chat-tests
+          cd e2e-tests
           npm ci
           npm run start
     
