@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Angular cypress unit test" type="js.build_tools.npm" folderName="Angular">
+    <package-json value="$PROJECT_DIR$/angular-chat/package.json" />
+    <command value="run" />
+    <scripts>
+      <script value="test:cypress" />
+    </scripts>
+    <node-interpreter value="project" />
+    <envs />
+    <method v="2" />
+  </configuration>
+</component>

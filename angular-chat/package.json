@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "test:prod": "ng test --browsers=ChromeHeadless --watch=false --code-coverage",
-    "test:cypress": "npx cypress open"
+    "test:cypress": "npx cypress open --component"
   },
   "private": true,
   "dependencies": {
