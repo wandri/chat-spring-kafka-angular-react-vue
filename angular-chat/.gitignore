@@ -45,3 +45,5 @@ testem.log
 .DS_Store
 Thumbs.db
 /.angular/
+/cypress/videos/app.component.cy.ts.mp4
+/cypress/videos/messages/message.component.cy.ts.mp4
