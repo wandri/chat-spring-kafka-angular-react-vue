@@ -1,27 +1,27 @@
-import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {UntypedFormControl} from '@angular/forms';
-import {Stomp} from 'stompjs/lib/stomp.js';
-import {MessageService} from './message.service';
-import {Message} from './message.interface';
-import {User} from '../user/user.interface';
-import {environment} from '../../environments/environment';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { FormControl } from "@angular/forms";
+import { MessageService } from "./message.service";
+import { Message } from "./message.interface";
+import { User } from "../user/user.interface";
+import { environment } from "../../environments/environment";
+import { Client } from "@stomp/stompjs";
 
 @Component({
-  selector: 'app-messages',
-  templateUrl: './messages.component.html',
-  styleUrls: ['./messages.component.scss']
+  selector: "app-messages",
+  templateUrl: "./messages.component.html",
+  styleUrls: ["./messages.component.scss"]
 })
 export class MessagesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Input()
   user: User;
 
-  @ViewChild('messageInput')
+  @ViewChild("messageInput")
   messageInput: ElementRef;
 
   messages: Message[] = [];
-  name = new UntypedFormControl('');
-  ws: any;
+  name = new FormControl<string>("");
+  websocketClient: Client;
 
   constructor(private messageService: MessageService) {
   }
@@ -41,42 +41,44 @@ export class MessagesComponent implements OnInit, OnDestroy, AfterViewInit {
     this.disconnect();
   }
 
-  connect() {
-    let socket = new WebSocket(environment.webSocket);
-    this.ws = Stomp.over(socket);
-    this.ws.connect({}, () => {
-      this.ws.subscribe('/chat', (frame: { body: string }) => {
-        const message: Message = JSON.parse(frame.body);
-        this.messages.push({...message, date: new Date(message.date)});
-      });
-    }, (error) => {
-      alert('STOMP error ' + error);
+  connect(): void {
+    this.websocketClient = this.initWebsocketClient(environment.webSocket, (body: string) => {
+      const message: Message = JSON.parse(body);
+      this.messages.push({ ...message, date: new Date(message.date) });
+    });
+    this.websocketClient.activate();
+  }
+
+  private initWebsocketClient(brokerURL: string, callBack: (body: string) => void): Client {
+    return new Client({
+      brokerURL: brokerURL,
+      onConnect: () => {
+        this.websocketClient.subscribe("/chat", (frame: { body: string }) => callBack(frame.body));
+      }
     });
   }
 
-  disconnect() {
-    if (this.ws != null) {
-      this.ws.ws.close();
+  disconnect(): void {
+    if (!!this.websocketClient) {
+      this.websocketClient.deactivate().then(() => console.warn("Disconnected"));
     }
-    console.warn('Disconnected');
   }
 
-  send() {
+  send(): void {
     this.messageService.send({
       text: this.name.value,
       userId: this.user.id
-    });
-    this.name.setValue('');
+    }).then(() => this.name.setValue(""));
   }
 
-  isToday(date: Date) {
+  isToday(date: Date): boolean {
     const today = new Date();
     return date.getDate() == today.getDate()
       && date.getMonth() == today.getMonth()
       && date.getFullYear() == today.getFullYear();
   }
 
-  isCurrentUser(userId: string) {
+  isCurrentUser(userId: string): boolean {
     return userId === this.user.id;
   }
 }

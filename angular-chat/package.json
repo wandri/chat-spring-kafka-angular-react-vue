@@ -21,8 +21,8 @@
     "@angular/platform-browser-dynamic": "^15.2.7",
     "@angular/router": "^15.2.7",
     "rxjs": "^7.8.0",
-    "stompjs": "^2.3.3",
     "tslib": "^2.3.0",
+    "@stomp/stompjs": "^7.0.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
