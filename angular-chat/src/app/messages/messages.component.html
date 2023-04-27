@@ -1,14 +1,14 @@
 <div class="message-component" data-cy="message-component">
   <div #scroll [scrollTop]="scroll.scrollHeight" class="message-container">
     <div class="messages">
-      <div *ngFor="let message of messages"
+      <div *ngFor="let message of messages" class="message"
            [ngClass]="{'current-user': isCurrentUser(message.userId), 'other-user': !isCurrentUser(message.userId)}" data-cy="message">
         <div class="bubble">
           <div *ngIf="!isCurrentUser(message.userId)" class="user-name">
             {{message.userName}}
           </div>
           <div class="message-text">
-            <span class="margin-right-10">{{message.text}}</span>
+            <span class="margin-right-10 text">{{message.text}}</span>
             <span *ngIf="isToday(message.date)" class="message-date">
               {{message.date | date:'hh:mm'}}
             </span>

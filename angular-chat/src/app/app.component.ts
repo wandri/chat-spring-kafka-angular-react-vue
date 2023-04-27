@@ -17,7 +17,7 @@ export class AppComponent implements AfterViewInit {
 
   user: User;
 
-  constructor(public userService: UserService) {
+  constructor(private userService: UserService) {
   }
 
   ngAfterViewInit(): void {
