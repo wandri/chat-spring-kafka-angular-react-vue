@@ -16,7 +16,7 @@ spring:
       enable-auto-commit: true
     properties:
       specific.avro.reader: true
-      schema.registry.url: "http://localhost:8081"
+      schema.registry.url: "http://localhost:8085"
 server:
   port: 8000
 

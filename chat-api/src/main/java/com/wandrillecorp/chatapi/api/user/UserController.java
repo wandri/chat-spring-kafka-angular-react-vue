@@ -2,14 +2,14 @@ package com.wandrillecorp.chatapi.api.user;
 
 import com.wandrillecorp.chatapi.application.UserManager;
 import com.wandrillecorp.chatapi.domain.user.User;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.validation.Valid;
 
-@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:5173","http://localhost:3000"}, maxAge = 3600)
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:5173", "http://localhost:3000"}, maxAge = 3600)
 @RestController
 @RequestMapping("/users")
 public class UserController {
