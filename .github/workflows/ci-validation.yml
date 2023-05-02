@@ -82,6 +82,7 @@ jobs:
       - name: Use Java
         uses: actions/setup-java@v3
         with:
+          distribution: 'adopt'
           cache: 'maven'
           java-version: '17'
       - name: Start Angular
