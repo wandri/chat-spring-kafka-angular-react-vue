@@ -79,6 +79,10 @@ jobs:
             vue-chat/package-lock.json
             react-chat/package-lock.json
             angular-chat/package-lock.json
+      - name: Use Java
+        uses: actions/setup-java@v3
+        with:
+          cache: 'maven'
       - name: Start Angular
         run: |
           cd angular-chat &&
