@@ -2,13 +2,13 @@ package com.wandrillecorp.chatapi.api.message;
 
 import com.wandrillecorp.chatapi.application.MessageManager;
 import com.wandrillecorp.chatapi.domain.message.Message;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
-@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:5173","http://localhost:3000"}, maxAge = 3600)
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:5173", "http://localhost:3000"}, maxAge = 3600)
 @RestController
 @RequestMapping("/messages")
 public class MessageController {

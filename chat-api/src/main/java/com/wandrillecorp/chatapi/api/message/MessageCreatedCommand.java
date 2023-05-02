@@ -1,6 +1,7 @@
 package com.wandrillecorp.chatapi.api.message;
 
-import javax.validation.constraints.NotNull;
+
+import jakarta.validation.constraints.NotNull;
 
 public class MessageCreatedCommand {
     @NotNull
