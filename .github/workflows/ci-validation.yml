@@ -83,6 +83,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           cache: 'maven'
+          java-version: '17'
       - name: Start Angular
         run: |
           cd angular-chat &&
