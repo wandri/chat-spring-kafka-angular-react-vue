@@ -1,52 +1,56 @@
-version: '2'
+version: '3'
 services:
 
   database:
-    image: mongo:3.6.8
+    container_name: MondoDB
+    image: mongo:6.0.1
     ports:
-      - 27017:27017
+      - "27017:27017"
 
   zookeeper:
-    image: confluentinc/cp-zookeeper:5.1.0
+    image: confluentinc/cp-zookeeper:7.3.2
+    container_name: zookeeper
     environment:
-      - ZOOKEEPER_CLIENT_PORT=2181
-      - ZOOKEEPER_TICK_TIME=2000
-    ports:
-      - 2181:2181
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
 
-  kafka:
-    image: confluentinc/cp-kafka:5.1.0
-    environment:
-      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
-      - KAFKA_AUTO_CREATE_TOPICS_ENABLE=false
-      - KAFKA_DELETE_TOPIC_ENABLE=false
-      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
-      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT, OUTSIDE:PLAINTEXT
-      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9093, OUTSIDE://localhost:9092
-      - KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9093, OUTSIDE://0.0.0.0:9092
+  broker:
+    image: confluentinc/cp-kafka:7.3.2
+    container_name: broker
     ports:
-      - 9092:9092
+      # To learn about configuring Kafka for access across networks see
+      # https://www.confluent.io/blog/kafka-client-cannot-connect-to-broker-on-aws-on-docker-etc/
+      - "9092:9092"
     depends_on:
       - zookeeper
-
-  kafka-init:
-    image: confluentinc/cp-kafka:5.1.0
-    command: |
-      bash -c "
-        until kafka-topics --create --if-not-exists --zookeeper zookeeper:2181 --replication-factor 1 --partitions 1 --topic chat --config retention.ms=157680000000; do sleep 1; done
-      "
     environment:
-      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
-    depends_on:
-      - kafka
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://broker:29092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_SCHEMA_REGISTRY_URL: "schema-registry:8085"
 
   schema-registry:
-    image: confluentinc/cp-schema-registry:5.1.0
-    environment:
-      - SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL=zookeeper:2181
-      - SCHEMA_REGISTRY_HOST_NAME=localhost
-      - SCHEMA_REGISTRY_LISTENERS=http://0.0.0.0:8081
-    ports:
-      - 8081:8081
+    image: confluentinc/cp-schema-registry:7.3.2
     depends_on:
-      - kafka
+      - broker
+    environment:
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: "broker:29092"
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_LISTENERS: "http://0.0.0.0:8085"
+    ports:
+      - "8085:8085"
+
+  kafka-init:
+    image: confluentinc/cp-kafka:7.3.2
+    command: |
+      bash -c "
+        until kafka-topics --create --if-not-exists --bootstrap-server zookeeper:2181 --replication-factor 1 --partitions 1 --topic chat --config retention.ms=157680000000; do sleep 1; done
+      "
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    depends_on:
+      - broker
