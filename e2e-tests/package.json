@@ -9,9 +9,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^12.10.0",
+    "cypress": "^12.11.0",
     "typescript": "^5.0.4",
-    "@badeball/cypress-cucumber-preprocessor": "^16.0.3",
+    "@badeball/cypress-cucumber-preprocessor": "^17.0.0",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0"
   }
 }
